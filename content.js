@@ -1,39 +1,14 @@
-// Listen for messages from popup
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'getThread') {
-      try {
-        // Find the main tweet/thread container (Twitter's DOM changes, so flexible selectors)
-        const tweetElements = document.querySelectorAll('article[data-testid="tweet"]');
-        if (tweetElements.length === 0) {
-          sendResponse(null);
-          return;
-        }
-  
-        const thread = {
-          author: '',
-          tweets: [],
-          url: window.location.href
-        };
-  
-        tweetElements.forEach((el) => {
-          const textEl = el.querySelector('[data-testid="tweetText"]');
-          const authorEl = el.querySelector('[data-testid="User-Name"] span');
-          if (textEl && textEl.textContent.trim()) {
-            thread.tweets.push(textEl.textContent.trim());
-          }
-          if (authorEl && !thread.author) {
-            thread.author = authorEl.textContent;
-          }
-        });
-  
-        // Filter to unique tweets
-        thread.tweets = [...new Set(thread.tweets)];
-  
-        sendResponse(thread);
-      } catch (error) {
-        console.error('Thread scrape error:', error);
-        sendResponse(null);
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    if (msg.action === "grab") {
+      const tweets = Array.from(document.querySelectorAll('[data-testid="tweetText"]'))
+                      .map(t => t.innerText.trim())
+                      .filter(Boolean);
+      if (tweets.length < 2) {
+        alert("Not a thread – need 2+ tweets");
+        return;
       }
+      const text = tweets.map((t,i) => `${i+1}. ${t}`).join('\n\n');
+      const url = `https://notion-thread2notion.vercel.app/api/save?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
     }
-    return true; // Keeps message channel open for async
   });

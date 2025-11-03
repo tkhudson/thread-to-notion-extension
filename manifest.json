@@ -1,28 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Thread → Notion",
-    "version": "1.0.0",
-    "description": "Save Twitter threads to Notion in 1 click",
-    "action": {
-      "default_popup": "popup.html",
-      "default_title": "Save Thread to Notion"
-    },
-    "permissions": ["activeTab", "storage", "scripting"],
-    "host_permissions": [
-      "https://twitter.com/*",
-      "https://x.com/*",
-      "https://api.notion.com/*"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://twitter.com/*", "https://x.com/*"],
-        "js": ["content.js"]
-      }
-    ],
-    "icons": {
-      "128": "icon.png"
-    }
+    "name": "Thread2Notion",
+    "version": "1.0",
+    "action": { "default_popup": "popup.html" },
+    "permissions": ["activeTab", "storage"],
+    "icons": { "96": "icon.png" }
   }
