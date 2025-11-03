@@ -2,14 +2,18 @@
     "manifest_version": 3,
     "name": "Thread2Notion",
     "version": "1.0",
-    "action": { "default_popup": "popup.html" },
-    "permissions": ["activeTab", "storage"],
-    "background": {
-      "service_worker": "background.js"
+    "description": "1-click save Twitter threads to Notion",
+    "permissions": ["activeTab", "clipboardWrite"],
+    "action": {
+      "default_popup": "popup.html"
     },
-    "content_scripts": [{
-      "matches": ["https://twitter.com/*", "https://x.com/*"],
-      "js": ["content.js"]
-    }],
-    "icons": { "96": "icon.png" }
+    "icons": {
+      "96": "icon.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://twitter.com/*", "https://x.com/*"],
+        "js": ["content.js"]
+      }
+    ]
   }
