@@ -1,6 +1,8 @@
-// Service worker for background tasks (Manifest V3)
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Thread → Notion installed!');
+// background.js
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    if (msg.action === "grab") {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, {action: "grab"});
+      });
+    }
   });
-  
-  // No heavy logic needed here for MVP

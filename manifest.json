@@ -4,5 +4,12 @@
     "version": "1.0",
     "action": { "default_popup": "popup.html" },
     "permissions": ["activeTab", "storage"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [{
+      "matches": ["https://twitter.com/*", "https://x.com/*"],
+      "js": ["content.js"]
+    }],
     "icons": { "96": "icon.png" }
   }
