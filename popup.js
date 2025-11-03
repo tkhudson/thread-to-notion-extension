@@ -3,7 +3,7 @@ document.getElementById('save').addEventListener('click', () => {
       chrome.tabs.sendMessage(tabs[0].id, {action: "grabThread"}, (response) => {
         if (response && response.text) {
           navigator.clipboard.writeText(response.text).then(() => {
-            window.open('https://buttered-galliform-468.notion.site/Paste-Thread-Here-2a097d8723e380deba62dbd1773c9485?source=copy_link', '_blank');
+            window.open('https://serviam.notion.site/Paste-Thread-Here-2a097d8723e380deba62dbd1773c9485?duplicate=true', '_blank');
             alert('Thread copied! Paste (Ctrl+V) into the new Notion page.');
           }).catch(err => {
             console.error('Clipboard error:', err);
